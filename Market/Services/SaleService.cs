@@ -6,9 +6,9 @@ namespace Market.Services
     public class SaleService : ISaleService
     {
         private readonly MarketDbContext _context;
-        private readonly ProductSaleService _productSaleService;
+        private readonly IProductSaleService _productSaleService;
 
-        public SaleService(MarketDbContext context, ProductSaleService productSaleService)
+        public SaleService(MarketDbContext context, IProductSaleService productSaleService)
         {
             _context = context;
             _productSaleService = productSaleService;
