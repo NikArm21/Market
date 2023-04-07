@@ -17,7 +17,6 @@ namespace Market.Controllers
         // GET: WareHouseController
         public ActionResult Index()
         {
-            var list = _service.Get
             return View();
         }
 
@@ -39,8 +38,9 @@ namespace Market.Controllers
         public ActionResult AddProduct(WareHouse wareHouse) { 
             try
             {
-                _marketDbContext.WareHouses.Add(wareHouse);
-                _marketDbContext.SaveChanges(); 
+                //_marketDbContext.WareHouses.Add(wareHouse);
+                //_marketDbContext.SaveChanges(); 
+                //_service.SaleProduct();
                 return RedirectToAction(nameof(Index));
             }
             catch

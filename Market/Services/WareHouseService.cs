@@ -1,4 +1,5 @@
 ﻿using Market.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Market.Services
 {
@@ -25,6 +26,22 @@ namespace Market.Services
             }
 
             product.Count -= count;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> AddProduct(int id, int count)
+        {
+            var product = await _context.WareHouses.Where(w => w.Id == id).FirstOrDefaultAsync();
+
+            if (product.Count > 0)
+            {
+                product.Count += count;
+            }
+            else
+            {
+                await _context.WareHouses.AddAsync(new WareHouse() { Count = count, ProductId = id });
+            }
             await _context.SaveChangesAsync();
             return true;
         }

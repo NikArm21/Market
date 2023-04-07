@@ -4,8 +4,9 @@ namespace Market.Services
 {
     public interface ISaleService
     {
-        public Task<SaleHistory> GetSaleHistory();
-        public Task<SaleHistory> GetSaleHistoryById();
-        public Task<bool> CreateSaleHistory(Sale sale);
+        Task<List<SaleHistory>> GetSaleHistory();
+        Task<bool> CreateSaleHistory(Sale sale);
+        Task<SaleHistory> GetSaleHistoryById(int id);
+
     }
 }
