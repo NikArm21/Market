@@ -2,11 +2,9 @@
 using Market.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Market.Controllers
 {
-
     public class SaleCantroller : Controller
     {
         private readonly ISaleService _service;
@@ -18,79 +16,12 @@ namespace Market.Controllers
         // GET: SaleCantroller
         public ActionResult Index()
         {
+            var sale = new Sale();
+            var a = _service.CreateSaleHistory(sale);
             return View("SaleView");
         }
 
-        // GET: SaleCantroller/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SaleCantroller/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SaleCantroller/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SaleCantroller/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SaleCantroller/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SaleCantroller/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SaleCantroller/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
             //return  _context.Products.Find(id);
             return null;
@@ -98,6 +29,8 @@ namespace Market.Controllers
 
         public async Task<ActionResult> SaleView()
         {
+            var sale = new Sale();
+            var a = _service.CreateSaleHistory(sale);
             return View();
         }
         [HttpPost]

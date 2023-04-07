@@ -11,9 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MarketDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //builder.Services.AddIdentityCore<MarketDbContext>(op => op.SignIn.RequireConfirmedAccount = true);
-builder.Services.TryAddScoped<IProductSaleService, ProductSaleService>();
-builder.Services.TryAddScoped<IWareHouseService, WareHouseService>();
-builder.Services.TryAddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
+builder.Services.AddScoped<IWareHouseService, WareHouseService>();
+builder.Services.AddScoped<ISaleService, SaleService>();
 
 var app = builder.Build();
 
@@ -40,39 +40,3 @@ app.MapControllerRoute(
 app.Run();
 
 
-//Host.CreateDefaultBuilder()
-//    .ConfigureWebHostDefaults(webBuilder =>
-//    {
-//        webBuilder.ConfigureServices(services =>
-//        {
-//            services.AddDbContext<MarketDbContext>(options =>
-//                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-//            services.AddScoped<IService, Service>();
-
-//            services.AddTransient<IDependency, Dependency>();
-
-//            services.AddControllersWithViews();
-//        });
-
-//        webBuilder.Configure(app =>
-//        {
-//            var env = app.ApplicationServices.GetService<IWebHostEnvironment>();
-
-//            if (env.IsDevelopment())
-//            {
-//                app.UseDeveloperExceptionPage();
-//            }
-
-//            app.UseRouting();
-
-//            app.UseEndpoints(endpoints =>
-//            {
-//                endpoints.MapControllerRoute(
-//                    name: "default",
-//                    pattern: "{controller=Home}/{action=Index}/{id?}");
-//            });
-//        });
-//    })
-//    .Build()
-//    .Run();
