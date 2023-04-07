@@ -1,14 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Market.Models;
+using Market.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Market.Controllers
 {
+
     public class SaleCantroller : Controller
     {
+        private readonly ISaleService _service;
+        public SaleCantroller(ISaleService service)
+        {
+            _service = service;
+        }
+
         // GET: SaleCantroller
         public ActionResult Index()
         {
-            return View();
+            return View("SaleView");
         }
 
         // GET: SaleCantroller/Details/5
@@ -79,5 +89,22 @@ namespace Market.Controllers
                 return View();
             }
         }
+
+        public Product GetProductById(int id)
+        {
+            //return  _context.Products.Find(id);
+            return null;
+        }
+
+        public async Task<ActionResult> SaleView()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> SaleView(List<Sale> sales)
+        {
+            return View();
+        }
+
     }
 }

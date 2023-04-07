@@ -1,4 +1,5 @@
 ﻿using Market.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Market.Services
 {
@@ -46,20 +47,21 @@ namespace Market.Services
 
             transaction.Rollback();
             return false;
-
-            
-            
-
         }
 
-        public Task<SaleHistory> GetSaleHistory()
+        public async Task<List<SaleHistory>> GetSaleHistory()
         {
-            throw new NotImplementedException();
+            return await _context.SaleHistories.Select(s => new SaleHistory() { Date = s.Date, Result = s.Result }).ToListAsync();
         }
 
-        public Task<SaleHistory> GetSaleHistoryById()
+        public async Task<SaleHistory> GetSaleHistoryById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.ProductSaleHistories.Where(s => s.SaleHistoryId == id).Select(s=>
+            new SaleHistory() 
+            {
+                Date = s.SaleHistory.Date,
+                Result = s.SaleHistory.Result
+            }).FirstAsync();
         }
     }
 }
