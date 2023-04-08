@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Market.Controllers
 {
-    public class SaleCantroller : Controller
+    public class SaleController : Controller
     {
         private readonly ISaleService _service;
-        public SaleCantroller(ISaleService service)
+        public SaleController(ISaleService service)
         {
             _service = service;
         }
@@ -29,9 +29,7 @@ namespace Market.Controllers
 
         public async Task<ActionResult> SaleView()
         {
-            var sale = new Sale();
-            var a = _service.CreateSaleHistory(sale);
-            return View();
+            return View("SaleView");
         }
         [HttpPost]
         public async Task<ActionResult> SaleView(List<Sale> sales)

@@ -27,10 +27,28 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="WareHouse" asp-action="Index">AddProducttoWare</a>
-                        </li> 
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="SaleView">Sale</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                            <p class="position-absolute" style="right:85px">@User.Identity.Name</p>
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <input class="nav-link text-dark position-absolute" style="right:25px" type="submit" value="Logout" />
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark position-absolute" style="right:25px" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark position-absolute" style="right:85px" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

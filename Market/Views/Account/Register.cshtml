@@ -1,0 +1,34 @@
+﻿@model Market.Models.RegisterViewModel
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Register</h2>
+            <hr />
+            <form method="post" asp-controller="Account" asp-action="Register">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label><br />
+                    <input class="form-control" asp-for="Email" required>
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Year">Birth Year</label>
+                    <input class="form-control" asp-for="Year"  min="1900" max="2023" required>
+                    <span asp-validation-for="Year"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <input  class="form-control" asp-for="Password"  minlength="6" required>
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PasswordConfirm">Confirm Password</label>
+                    <input  class="form-control" asp-for="PasswordConfirm"  minlength="6" required>
+                    <span asp-validation-for="PasswordConfirm"></span>
+                </div>
+                <button type="submit" value="Register" class="btn btn-primary mt-2">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

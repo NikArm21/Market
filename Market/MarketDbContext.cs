@@ -14,6 +14,7 @@ namespace Market
         public DbSet<SaleHistory> SaleHistories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<WareHouse> WareHouses { get; set; }
+        public DbSet<User> Users { get; set; }
         public MarketDbContext(DbContextOptions<MarketDbContext> options)
             : base(options)
         {

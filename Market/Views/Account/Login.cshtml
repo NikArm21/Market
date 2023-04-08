@@ -1,0 +1,53 @@
+﻿@model Market.Models.LoginViewModel
+
+<h2>Вход в приложение</h2>
+<form method="post" asp-controller="Account" asp-action="Login"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="RememberMe"></label><br />
+        <input asp-for="RememberMe" />
+    </div>
+    <div>
+        <input type="submit" value="Войти" />
+    </div>
+</form>
+
+@*@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Login</h2>
+            <hr />
+            <form method="post" asp-controller="Account" asp-action="Login"asp-route-returnUrl="@Model.ReturnUrl">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input type="email" class="form-control" name="Email" asp-for="Email" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <input type="password" class="form-control" name="Password" asp-for="Password" required>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" name="RememberMe" asp-for="RememberMe">
+                    <label class="form-check-label" asp-for="RememberMe">Remember Me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>*@
