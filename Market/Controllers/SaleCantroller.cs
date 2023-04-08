@@ -29,7 +29,7 @@ namespace Market.Controllers
 
         public async Task<ActionResult> SaleView()
         {
-            return View("SaleView");
+            return View("SaleCheck");
         }
         [HttpPost]
         public async Task<ActionResult> SaleView(List<Sale> sales)
