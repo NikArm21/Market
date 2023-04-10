@@ -16,34 +16,44 @@ namespace Market.Services
         {
             WareHouse product = _context.WareHouses.FirstOrDefault(w => w.ProductId == productid);
 
-            if (product == null)
-            {
-                return false;
-            }
-            if (product.Count < count)
+            if (product == null || product.Count < count)
             {
                 return false;
             }
 
             product.Count -= count;
-            await _context.SaveChangesAsync();
-            return true;
+
+            int result = await _context.SaveChangesAsync();
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public async Task<bool> AddProduct(int id, int count)
+        public async Task<bool> AddProduct(WareHouse wareHouse)
         {
-            var product = await _context.WareHouses.Where(w => w.Id == id).FirstOrDefaultAsync();
-
-            if (product.Count > 0)
+            var product = await _context.WareHouses.Where(w => w.Id ==wareHouse.Product.Id).FirstOrDefaultAsync();
+           
+            if(product == null)
             {
-                product.Count += count;
+                await _context.WareHouses.AddAsync(new WareHouse() { Count =wareHouse.Count, ProductId = wareHouse.Product.Id });
             }
             else
             {
-                await _context.WareHouses.AddAsync(new WareHouse() { Count = count, ProductId = id });
+                product.Count +=wareHouse.Count;
             }
-            await _context.SaveChangesAsync();
-            return true;
+            
+            int result = await _context.SaveChangesAsync();
+            if(result > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public async Task<WareHouse> GetProductInWarehausByIdAsync(int productId)
+        {
+            return await _context.WareHouses.FirstOrDefaultAsync(w=>w.ProductId==productId);
         }
     }
 }

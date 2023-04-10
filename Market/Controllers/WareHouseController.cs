@@ -21,26 +21,27 @@ namespace Market.Controllers
         }
 
         // GET: WareHouseController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: WareHouseController/Create
-        public ActionResult AddProduct()
+        public async Task<ActionResult> AddProduct(int id = 0)
         {
-            return View();
+            WareHouse model=await _service.GetProductInWarehausByIdAsync(id);
+                ;//stanal trvac idov product@ service.GetProductInWarehausByIdAsync
+
+
+            return View(model);
         }
 
         // POST: WareHouseController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProduct(WareHouse wareHouse) { 
+        public async Task <ActionResult> AddProduct(WareHouse wareHouse) { 
             try
             {
                 //_marketDbContext.WareHouses.Add(wareHouse);
                 //_marketDbContext.SaveChanges(); 
                 //_service.SaleProduct();
+                await _service.AddProduct (wareHouse.Product.Id, wareHouse.Count);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -49,47 +50,6 @@ namespace Market.Controllers
             }
         }
 
-        // GET: WareHouseController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: WareHouseController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: WareHouseController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: WareHouseController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }
