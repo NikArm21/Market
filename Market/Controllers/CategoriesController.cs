@@ -7,36 +7,40 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Market;
 using Market.Models;
+using Market.Services;
 
 namespace Market.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly MarketDbContext _context;
+        private readonly ICategoriesService _service;
 
-        public CategoriesController(MarketDbContext context)
+        public CategoriesController(ICategoriesService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'MarketDbContext.Categories'  is null.");
+            var categories = await _service.GetCategories();
+
+            return categories != null ?
+                        View(categories) :
+                        Problem("Entity set 'MarketDbContext.Categories'  is null.");
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Categories == null)
+            var categories = await _service.GetCategories();
+
+            if (id == null || categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = _service.GetCategoryById((int)id);
             if (category == null)
             {
                 return NotFound();
@@ -56,12 +60,11 @@ namespace Market.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Create(Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                await _service.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -70,13 +73,13 @@ namespace Market.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Categories == null)
+            var categories = _service.GetCategories();
+            if (id == null || categories == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var category = _service.GetCategoryById((int)id);
             {
                 return NotFound();
             }
@@ -99,19 +102,18 @@ namespace Market.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    _service.UpdateCategory(category);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!CategoryExists(category.Id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -121,13 +123,14 @@ namespace Market.Controllers
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Categories == null)
+            var category = await _service.GetCategoryById((int)id);
+
+            if (id == null || category == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (category == null)
             {
                 return NotFound();
@@ -141,23 +144,23 @@ namespace Market.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Categories == null)
+            var category = await _service.GetCategoryById((int)id);
+
+            if (category == null)
             {
                 return Problem("Entity set 'MarketDbContext.Categories'  is null.");
             }
-            var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
-                _context.Categories.Remove(category);
+                await _service.DeleteCateegory(id);
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
-        {
-          return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        //private bool CategoryExists(int id)
+        //{
+        //    return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
+        //}
     }
 }

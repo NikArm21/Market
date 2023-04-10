@@ -26,10 +26,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WareHouse" asp-action="Index">AddProducttoWare</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">CreateCategory</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">CreateSuppilers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="WareHouse" asp-action="Index">AddProductWare</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="SaleView">Sale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">AddProduct</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {

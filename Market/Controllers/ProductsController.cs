@@ -59,9 +59,9 @@ namespace Market.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CategoryId,Cost,Price,SupplierId,HashCode")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
