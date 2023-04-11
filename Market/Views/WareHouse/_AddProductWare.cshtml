@@ -1,15 +1,17 @@
 ﻿@model WareHouse
  
-<div class="row product-row hidden">
-    <form id="addProductForm" asp-action="AddProduct" asp-controller="WareHouse" method="post">
-        <div class="col-md-6">
-            <b class="form-control">@Model.ProductId</b>
+<div class="row">
+    <form id="addProductForm" asp-action="AddProduct" asp-controller="WareHouse" method="post" class="d-flex mt-3"> 
+        <div class="col-md-1 my-auto">
+            <b class="">@Model.Product.Name</b>
         </div>
         <div class="col-md-3">
             <input type="text" asp-for="Count" class="form-control" placeholder="Count">
         </div>
-        <div class="col-md-12 text-center mt-3">
-            <button id="addProductInWare" class="btn btn-primary">AddProduct</button>
+        <div class="col-md-6 row-buttons">
+            <button id="editProductInWare" class="btn btn-primary">Edit</button>
+            @*<button type="button"  class="btn btn-danger">Remove</button>*@
+            <img id="removeRowEdit" src="~/images/trash-bin.png" />
         </div>
     </form>
 </div>

@@ -45,8 +45,15 @@ namespace Market.Controllers
                 //_marketDbContext.WareHouses.Add(wareHouse);
                 //_marketDbContext.SaveChanges(); 
                 //_service.SaleProduct();
-                await _service.AddProduct(wareHouse);
-                return RedirectToAction(nameof(Index));
+                bool result = await _service.AddProduct(wareHouse);
+                if (result)
+                {
+                    return Json(new { success = true });
+                }
+                return Json(new
+                {
+                    success = false
+                });
             }
             catch
             {

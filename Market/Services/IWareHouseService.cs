@@ -9,6 +9,7 @@ namespace Market.Services
         Task<WareHouse> GetProductInWarehausByIdAsync(int productId);
         Task<WareHouse> GetProductById(int id);
         Task<List<ProductWareShortModel>> GetProducts();
+        Task<bool> EditProduct(WareHouse product);
     }
 
 }

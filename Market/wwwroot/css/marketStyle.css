@@ -8,3 +8,12 @@
 .addProductDiv {
   text-align: right;
 }
+
+#addProductForm .row-buttons {
+  margin-left: 5px;
+}
+#addProductForm .row-buttons #removeRowEdit {
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+}

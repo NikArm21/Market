@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Views\SaleCantroller\" />
+    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
