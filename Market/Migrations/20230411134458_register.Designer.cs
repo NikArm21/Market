@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Market.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    [Migration("20230411114123_registration")]
-    partial class registration
+    [Migration("20230411134458_register")]
+    partial class register
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

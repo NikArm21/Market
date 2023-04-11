@@ -12,15 +12,17 @@
             type: "GET",
             url: findProductURL + "?id=" + parseInt($("#searchProductId").val()),
             success: function (result) {
-                if (result.success) {
+                if (result.success == false) {
+
+                    $(".not-found-product").removeClass('hidden');
+                    return false;
+                }
+                else {
                     if (!$(".not-found-product").hasClass('hidden')) {
                         $(".not-found-product").addClass('hidden')
                     }
-                    $(".product-row").text(result);
-                }
-                else {
-                    $(".not-found-product").removeClass('hidden');
-                    return false;
+                    $(".product-row").removeClass("hidden")
+                    $(".product-row").append(result);
                 }
             }
         })
@@ -46,21 +48,27 @@ $(document).on("click", "#addProduct", function () {
 
 $(document).on("click", "#addProductToWare", function () {
 
+    var form = $("#addProductToWareForm");
+    var actionUrl = form.attr('action');
+
     $.ajax({
         type: "POST",
-        url: addProductWareURL,
+        url: actionUrl,
+        data:form.serialize(),
         success: function (result) {
             if (result.success) {
-                if (!$(".not-found-product").hasClass('hidden')) {
-                    $(".not-found-product").addClass('hidden')
-                }
-                $(".product-row").text(result);
+                $("#dialogDiv").modal("hide");
             }
             else {
-                $(".not-found-product").removeClass('hidden');
+
                 return false;
             }
         }
     })
 
+})
+
+$(document).on("click", "#removeRowEdit", function () {
+
+    $(this).parent().parent().remove();
 })

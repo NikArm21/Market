@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Market.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/marketStyle.min.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="/images/market.png" type="image/x-icon" />
+
 </head>
 <body>
     <header>
@@ -44,10 +46,10 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                            <p class="position-absolute" style="right:85px">@User.Identity.Name</p>
-                                <form method="post" asp-controller="Account" asp-action="Logout">
-                                    <input class="nav-link text-dark position-absolute" style="right:25px" type="submit" value="Logout" />
+                            <li class="nav-item d-flex align-items-center" style="margin-left:auto">
+                                <p class="m-0">@User.Identity.Name</p>
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-flex align-items-center ml-3">
+                                    <button type="submit" class="btn btn-light" value="Logout">Logout</button>
                                 </form>
                             </li>
                         }
@@ -71,19 +73,7 @@
         </main>
     </div>
 
-
- @*   <div class="modal fade" id="dialogDiv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div id="dialogContent" class="modal-dialog">
-      </div>
-    </div>*@
-
-    @*    <div id="dialogDiv" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static">
-            <div id="dialogContent" class="modal-dialog">
-            </div>
-        </div>*@
-
-
-<div class="modal fade" id="dialogDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="dialogDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
    
   </div>

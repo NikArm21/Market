@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Market
 {
-    public class MarketDbContext: IdentityDbContext<Employee>
+    public class MarketDbContext : IdentityDbContext<Employee>
 
     {
         public DbSet<Product> Products { get; set; }
@@ -18,7 +18,7 @@ namespace Market
         public MarketDbContext(DbContextOptions<MarketDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
     }
 }
