@@ -1,7 +1,7 @@
 ﻿using Market.Models;
 using Market.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Market.Controllers
 {
@@ -11,12 +11,14 @@ namespace Market.Controllers
 
         public WareHouseController(IWareHouseService service)
         {
-            _service= service;
+            _service = service;
         }
 
         // GET: WareHouseController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+
             return View();
         }
 
@@ -25,23 +27,25 @@ namespace Market.Controllers
         // GET: WareHouseController/Create
         public async Task<ActionResult> AddProduct(int id = 0)
         {
-            WareHouse model=await _service.GetProductInWarehausByIdAsync(id);
-                ;//stanal trvac idov product@ service.GetProductInWarehausByIdAsync
+            //var model = await _service.GetProductInWarehausByIdAsync(id);
+            var products = await _service.GetProducts();
 
+            ViewBag.Products = new SelectList(products, "ProductId", "ProductName");
 
-            return View(model);
+            return PartialView("_AddNewProductToWare");
         }
 
         // POST: WareHouseController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <ActionResult> AddProduct(WareHouse wareHouse) { 
+        public async Task<ActionResult> AddProduct(ProductWareShortModel wareHouse)
+        {
             try
             {
                 //_marketDbContext.WareHouses.Add(wareHouse);
                 //_marketDbContext.SaveChanges(); 
                 //_service.SaleProduct();
-                await _service.AddProduct (wareHouse.Product.Id, wareHouse.Count);
+                await _service.AddProduct(wareHouse);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -49,7 +53,21 @@ namespace Market.Controllers
                 return View();
             }
         }
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = await _service.GetProductById(id);
 
-        
+            if (product != null)
+            {
+                return PartialView("_AddProductWare", product);
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+
+
     }
 }

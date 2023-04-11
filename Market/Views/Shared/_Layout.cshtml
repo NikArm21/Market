@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Market</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-grid.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Market.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/marketStyle.min.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -69,14 +71,37 @@
         </main>
     </div>
 
+
+ @*   <div class="modal fade" id="dialogDiv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div id="dialogContent" class="modal-dialog">
+      </div>
+    </div>*@
+
+    @*    <div id="dialogDiv" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static">
+            <div id="dialogContent" class="modal-dialog">
+            </div>
+        </div>*@
+
+
+<div class="modal fade" id="dialogDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   
+  </div>
+</div>
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Market - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.mask.js" asp-append-version="true"></script>
+    @*<script src="~/lib/jquery.maskedinput/jquery.maskedinput.js" asp-append-version="true"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

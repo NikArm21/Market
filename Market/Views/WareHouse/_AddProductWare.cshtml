@@ -1,0 +1,15 @@
+﻿@model WareHouse
+ 
+<div class="row product-row hidden">
+    <form id="addProductForm" asp-action="AddProduct" asp-controller="WareHouse" method="post">
+        <div class="col-md-6">
+            <b class="form-control">@Model.ProductId</b>
+        </div>
+        <div class="col-md-3">
+            <input type="text" asp-for="Count" class="form-control" placeholder="Count">
+        </div>
+        <div class="col-md-12 text-center mt-3">
+            <button id="addProductInWare" class="btn btn-primary">AddProduct</button>
+        </div>
+    </form>
+</div>
