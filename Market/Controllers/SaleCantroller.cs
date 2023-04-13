@@ -10,6 +10,7 @@ namespace Market.Controllers
     {
         private readonly ISaleService _service;
         private readonly IWareHouseService _wareHouseService;
+        private static List<SaleItem> items = new List<SaleItem>();
         public SaleController(ISaleService service, IWareHouseService wareHouseService)
         {
             _service = service;
@@ -49,7 +50,8 @@ namespace Market.Controllers
 
         public async Task<IActionResult> GetSaleRow()
         {
-            return PartialView("_SaleRow");
+            items.Add(new SaleItem());
+            return PartialView("_SaleRow", items);
         }
 
         public async Task<ActionResult> Sale()
@@ -60,6 +62,10 @@ namespace Market.Controllers
         [HttpPost]
         public async Task<ActionResult> Sale(List<SaleItem> sales)
         {
+            //TODO : Save sales
+
+            //Clear list
+            items = new List<SaleItem>();
             return View();
         }
 
