@@ -5,5 +5,10 @@
         public int ProductID { get; set; }
         public int Count { get; set; }
         public decimal Total { get; set; }
+
+        public SaleItem()
+        {
+            Count = 1;
+        }
     }
 }

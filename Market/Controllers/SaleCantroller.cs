@@ -1,16 +1,19 @@
 ﻿using Market.Models;
 using Market.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Market.Controllers
 {
     public class SaleController : Controller
     {
         private readonly ISaleService _service;
-        public SaleController(ISaleService service)
+        private readonly IWareHouseService _wareHouseService;
+        public SaleController(ISaleService service, IWareHouseService wareHouseService)
         {
             _service = service;
+            _wareHouseService = wareHouseService;
         }
 
         // GET: SaleCantroller
@@ -21,18 +24,41 @@ namespace Market.Controllers
             return View("SaleView");
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             //return  _context.Products.Find(id);
-            return null;
+            var productWare = await _wareHouseService.GetProductById(id);
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+
+            var product = System.Text.Json.JsonSerializer.Serialize(productWare, options);
+
+            if (productWare != null)
+            {
+                return Json(new { success = true, product });
+            }
+            return Json(new
+            {
+                success = false,
+                message = "Haven't this product"
+            });
         }
 
-        public async Task<ActionResult> SaleView()
+        public async Task<IActionResult> GetSaleRow()
+        {
+            return PartialView("_SaleRow");
+        }
+
+        public async Task<ActionResult> Sale()
         {
             return View("SaleCheck");
         }
+
         [HttpPost]
-        public async Task<ActionResult> SaleView(List<Sale> sales)
+        public async Task<ActionResult> Sale(List<SaleItem> sales)
         {
             return View();
         }
