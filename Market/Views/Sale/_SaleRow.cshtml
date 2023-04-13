@@ -1,9 +1,9 @@
-﻿@model SaleItem
+﻿@model List<SaleItem>
 
-  <tr id="inputRow">
-  <td><input asp-for=ProductID class="productId" type="number"   /></td>
-  <td><input class ="name" type="text" disabled/></td>
-  <td><input class="count" type="number"  asp-for="Count" /></td>
-  <td><input class="total" type="number"  asp-for="Total"  disabled/></td>
-  <td><button type="button" class="btn btn-danger removeRow">Remove</button></td>
-  </tr>
+<tr id="inputRow">
+    <td><input asp-for=@Model[(@Model.Count-1)].ProductID class="productId" type="number" /></td>
+    <td><input class="name" type="text" disabled /></td>
+    <td><input class="count" type="number" asp-for="@Model[(@Model.Count-1)].Count" /></td>
+    <td><input class="total" type="number" asp-for="@Model[(@Model.Count-1)].Total" /></td>
+    <td><button type="button" class="btn btn-danger removeRow">Remove</button></td>
+</tr>

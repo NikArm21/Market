@@ -79,15 +79,15 @@ $(document).on("click", "#addRow", function () {
 })
 
 
-$(document).on("click", "#postResult", function () {
+//$(document).on("click", "#postResult", function () {
 
-    //var itemList = [
-    //    { ProductID: 1, Count: 2, Total: 10.0 },
-    //    { ProductID: 2, Count: 1, Total: 5.0 }
-    //];
+//    //var itemList = [
+//    //    { ProductID: 1, Count: 2, Total: 10.0 },
+//    //    { ProductID: 2, Count: 1, Total: 5.0 }
+//    //];
 
-    //// set the value of the hidden input field to the JSON representation of the list
-    //document.getElementById("list-items").value = JSON.stringify(itemList);
+//    //// set the value of the hidden input field to the JSON representation of the list
+//    //document.getElementById("list-items").value = JSON.stringify(itemList);
 
-    $("#formSale").submit();
-})
+//    $("#formSale").submit();
+//})
