@@ -1,9 +1,10 @@
-﻿@*@model Sale*@
+﻿@model List<SaleItem>
 
 <button id="addRow" type="button" class="btn btn-info">Add</button>
-<form method="post">
+<form method="post" asp-action="Sale" asp-controller="Sale" id="formSale">
     <div>
-        <input type="hidden" id="total" value="0" />
+    @*    <input type="hidden" id="total" value="0" />
+        <input type="hidden" value="" id="list-items" />*@
         <table class="table">
             <thead>
                 <tr>
@@ -14,66 +15,62 @@
                 </tr>
             </thead>
             <tbody id="newRow">
-                <tr id="inputRow">
-                    <td><input class="productId" type="number" name="[0].ProductId" /></td>
-                    <td><input class="text" disabled /></td>
-                    <td><input class="count" type="number" name="[0].Count" value="1" /></td>
-                    <td><input class="total" value="1000" name="[0].Total" /></td>
-                </tr>
+                
+                
+           
             </tbody>
         </table>
     </div>
-    <input type="submit" class="btn btn-primary" value="Post" />
+    <input type="submit" class="btn btn-primary" value="Post" id="postResult"/>
 </form>
 
-@section Scripts
-    {
-    <script>
-
-        let addRow = function () {
-            var rowCount = parseInt($("#total").val());
-            rowCount++;
-            $("#total").val(rowCount);
-            var html = '';
-            html += '<tr id="inputRow">';
-            html += '<td><input id="productId" type="number" name="[' + (rowCount) + '].ProductId"  /></td>';
-            html += '<td><input id ="name" type="text" disabled/></td>';
-            html += '<td><input id="count" type="number" name="[' + (rowCount) + '].Count" value="1" /></td>';
-            html += '<td><input id="total" type="number" name="[' + (rowCount) + '].Total"  disabled/></td>';
-            html += '<td><button id="removeRow" type="button" class="btn btn-danger">Remove</button></td>';
-            html += '</tr>';
-
-            $('#newRow').append(html);
-        };
-        let t;
-        $('.productId').on('click', function () {
-            t = $(this);
-            var total = $(this).closest('tr').find('.total').val();
-            console.log(total); // or do anything you want with the total value
-        });
-        $('.productId').blur(function (e) {
-            addRow();
-            $.ajax({
-                type: 'GET',
-                url: "/Product/GetProductById/" + $(this).val(),
-                contentType: "application/json",
-                dataType: "json",
-            }).done(function (data) {
-                //$(this).closest('#name').val(data.Brand);
-                //$(this).closest('input').prop('#total');
-                console.log($(this).closest('tr').find('.total').val());
-                console.log($(this) == t)
-            })
-                .fail(function (error) {
-                    console.log(data);
-                });
-        });
-
-        $(document).on('click', '#removeRow', function () {
-            var rowCount = parseInt($("#total").val());
-            rowCount--;
-            $("#total").val(rowCount);
-            $(this).closest('#inputRow').remove();
-        });
-    </script>
+@section scripts
+{
+   <script src="~/js/Sale.js" asp-append-version="true"></script>
 }
+
+<script>
+    var saleRowURL = "@Url.Action("GetSaleRow","Sale")";
+</script>
+
+
+@*<form method="post"  asp-action="Sale" asp-controller="Sale">
+  <table id="ItemListTable">
+    <thead>
+      <tr>
+        <th>Property 1</th>
+        <th>Property 2</th>
+        <th>Property 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (int i = 0; i < Model.ItemList.Count; i++)
+      {
+        <tr>
+          <td><input asp-for="ItemList[i].Total" /></td>
+          <td><input asp-for="ItemList[i].Count" /></td>
+          <td><input asp-for="ItemList[i].ProductID" /></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <button type="button" id="addNewItemButton">Add New Item</button>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  var newItemIndex = @Model.ItemList.Count;
+  var ItemListTableBody = document.querySelector('#ItemListTable tbody');
+  var addNewItemButton = document.querySelector('#addNewItemButton');
+  
+  addNewItemButton.addEventListener('click', function() {
+    var newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td><input asp-for="ItemList[${newItemIndex}].Property1" /></td>
+      <td><input asp-for="ItemList[${newItemIndex}].Property2" /></td>
+      <td><input asp-for="ItemList[${newItemIndex}].Property3" /></td>
+    `;
+    ItemListTableBody.appendChild(newRow);
+    newItemIndex++;
+  });
+</script>*@
