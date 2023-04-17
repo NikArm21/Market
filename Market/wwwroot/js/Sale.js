@@ -23,7 +23,7 @@ let addRow = function () {
         type: 'GET',
         url: saleRowURL,
         success: function (html) {
-           $('#newRow').append(html);
+            $('#newRow').append(html);
         }
     })
 };
@@ -50,10 +50,10 @@ $(document).on("change", '.productId', function (e) {
         dataType: "json",
         success: function (data) {
             if (data.success) {
-                addRow();
+                //addRow();
                 var result = JSON.parse(data.product);
 
-                $(`#inputRow[data-productId="${result.Product.Id}"] > td > .total`).val(total != '' ? total + result.Product.Cost : result.Product.Cost)
+                $(`#inputRow[data-productId="${result.Product.Id}"] > td > .total`).val(total != '0' ? total + result.Product.Price : result.Product.Price)
                 $(`#inputRow[data-productId="${result.Product.Id}"]`).attr("data-productCost", result.Product.Cost);
                 $(`#inputRow[data-productid="${result.Product.Id}"] > td > .name`).val(result.Product.Name)
 
@@ -67,6 +67,16 @@ $(document).on('click', '.removeRow', function () {
     //rowCount--;
     //$("#total").val(rowCount);
     $(this).closest('#inputRow').remove();
+
+    $.ajax({
+        type: 'GET',
+        url: "/Sale/RemoveSaleRow/" + "?SaleRowId=" + parseInt($(this).closest('#inputRow').attr("data-saleRowId")),
+        success: function (data) {
+            if (data.success) {
+
+            }
+        }
+    })
 });
 
 $(document).on('change', '.count', function () {
@@ -79,15 +89,58 @@ $(document).on("click", "#addRow", function () {
 })
 
 
-//$(document).on("click", "#postResult", function () {
+$(document).on("click", '.fucnKnopka', function (event) {
 
-//    //var itemList = [
-//    //    { ProductID: 1, Count: 2, Total: 10.0 },
-//    //    { ProductID: 2, Count: 1, Total: 5.0 }
-//    //];
+    // Prevent the form from submitting normally
+    event.preventDefault();
+    $("#dialogDiv .modal-dialog").load(receiptRowURL, function () {
+        // Open the modal dialog
+        $("#dialogDiv").modal('show').on('show.bs.modal', ShowReceipt());
+    });
 
-//    //// set the value of the hidden input field to the JSON representation of the list
-//    //document.getElementById("list-items").value = JSON.stringify(itemList);
 
-//    $("#formSale").submit();
-//})
+
+
+
+
+
+
+
+    //// Clear the selected products from the sale table
+    //$('#saleTableBody tr').each(function () {
+    //    $(this).find('.productId').val('');
+    //    $(this).find('.name').val('');
+    //    $(this).find('.count').val('');
+    //    $(this).find('.total').val('');
+    //});
+});
+
+
+function ShowReceipt() {
+    // Loop through the rows of the sale table and extract the selected products
+    var selectedProducts = [];
+    $('#newRow tr').each(function () {
+        var productId = $(this).find('.productId').val();
+        var name = $(this).find('.name').val();
+        var count = $(this).find('.count').val();
+        var total = $(this).find('.total').val();
+        if (productId && name && count && total) {
+            selectedProducts.push({
+                productId: productId,
+                name: name,
+                count: count,
+                total: total
+            });
+        }
+    });
+
+    // Dynamically create a new HTML row that displays the selected products as a store sales receipt
+    var receiptRow = '<tr><td colspan="4"><strong>Store Sales Receipt</strong></td></tr>';
+    receiptRow += '<tr><td>Product ID</td><td class="ps-2">Name</td><td class="ps-2">Count</td><td class="ps-2">Total</td></tr>';
+    for (var i = 0; i < selectedProducts.length; i++) {
+        receiptRow += '<tr><td>' + selectedProducts[i].productId + '</td><td class="ps-2">' + selectedProducts[i].name + '</td><td class="ps-2">' + selectedProducts[i].count + '</td><td class="ps-2">' + selectedProducts[i].total + '</td></tr>';
+    }
+
+    // Append the new HTML row to the sales table
+    $('.reciptDiv').append(receiptRow);
+}

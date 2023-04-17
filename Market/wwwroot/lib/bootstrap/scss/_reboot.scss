@@ -374,13 +374,17 @@ th {
   border-width: 0;
 }
 
+.reciptDiv tr {
 
+    td {
+        border-width: 1px;
+    }
+}
 // Forms
 //
 // 1. Allow labels to use `margin` for spacing.
-
 label {
-  display: inline-block; // 1
+    display: inline-block; // 1
 }
 
 // Remove the default `border-radius` that macOS Chrome adds.

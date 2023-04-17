@@ -1,6 +1,6 @@
 ﻿@model List<SaleItem>
 
-<tr id="inputRow">
+<tr id="inputRow" data-saleRowId="@Model[Model.Count-1].SaleRowId">
     <td><input asp-for=@Model[(@Model.Count-1)].ProductID class="productId" type="number" /></td>
     <td><input class="name" type="text" disabled /></td>
     <td><input class="count" type="number" asp-for="@Model[(@Model.Count-1)].Count" /></td>
