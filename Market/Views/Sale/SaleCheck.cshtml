@@ -22,6 +22,7 @@
         </table>
     </div>
     <input type="submit" class="btn btn-primary" value="Post" id="postResult"/>
+    <input type="button" class="btn btn-primary fucnKnopka" value="ShowReceipt"  />
 </form>
 
 @section scripts
@@ -31,5 +32,7 @@
 
 <script>
     var saleRowURL = "@Url.Action("GetSaleRow","Sale")";
+    var receiptRowURL = "@Url.Action("GetReceiptModal","Sale")";
+
 </script>
 

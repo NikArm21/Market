@@ -14,20 +14,20 @@ namespace Market.Services
             _productSaleService = productSaleService;
         }
 
-        public async Task<bool> CreateSaleHistory(Sale sale)
+        public async Task<bool> CreateSaleHistory(List<SaleItem> sale)
         {
             int sum = 0;
             var transaction = _context.Database.BeginTransaction();
             var saleHistory = new SaleHistory()
             {
                 Date = DateTime.Now,
-                Result = sale.ItemList.Sum(s => s.Total),
+                Result = sale.Sum(s => s.Total),
             };
             await _context.SaleHistories.AddAsync(saleHistory);
-            sum=await _context.SaveChangesAsync();
-           
+            sum = await _context.SaveChangesAsync();
+
             saleHistory = _context.SaleHistories.FirstOrDefault(s => s.Date == saleHistory.Date);
-            foreach (var item in sale.ItemList)
+            foreach (var item in sale)
             {
                 ProductSaleHistory pr = new ProductSaleHistory()
                 {
@@ -36,10 +36,10 @@ namespace Market.Services
                     SaleHistoryId = saleHistory.Id,
 
                 };
-               sum += await _productSaleService.CreatSaledProduct(pr);
-                
+                sum += await _productSaleService.CreatSaledProduct(pr);
+
             }
-            if (sum == sale.ItemList.Count + 1)
+            if (sum == sale.Count + 1)
             {
                 transaction.Commit();
                 return true;
@@ -56,8 +56,8 @@ namespace Market.Services
 
         public async Task<SaleHistory> GetSaleHistoryById(int id)
         {
-            return await _context.ProductSaleHistories.Where(s => s.SaleHistoryId == id).Select(s=>
-            new SaleHistory() 
+            return await _context.ProductSaleHistories.Where(s => s.SaleHistoryId == id).Select(s =>
+            new SaleHistory()
             {
                 Date = s.SaleHistory.Date,
                 Result = s.SaleHistory.Result

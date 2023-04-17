@@ -11,6 +11,7 @@ namespace Market.Controllers
         private readonly ISaleService _service;
         private readonly IWareHouseService _wareHouseService;
         private static List<SaleItem> items = new List<SaleItem>();
+        private static int SaleRowId = 0;
         public SaleController(ISaleService service, IWareHouseService wareHouseService)
         {
             _service = service;
@@ -21,7 +22,7 @@ namespace Market.Controllers
         public ActionResult Index()
         {
             var sale = new Sale();
-            var a = _service.CreateSaleHistory(sale);
+            //var a = _service.CreateSaleHistory(sale);
             return View("SaleView");
         }
 
@@ -50,8 +51,20 @@ namespace Market.Controllers
 
         public async Task<IActionResult> GetSaleRow()
         {
-            items.Add(new SaleItem());
+            items.Add(new SaleItem() { SaleRowId = SaleRowId++ });
+
             return PartialView("_SaleRow", items);
+        }
+        public async Task RemoveSaleRow(int SaleRowId)
+        {
+            var item = items.Where(i => i.SaleRowId == SaleRowId).FirstOrDefault();
+
+            items.Remove(item);
+        }
+
+        public async Task<IActionResult> GetReceiptModal()
+        {
+            return PartialView("_SalesReceipt");
         }
 
         public async Task<ActionResult> Sale()
@@ -62,11 +75,15 @@ namespace Market.Controllers
         [HttpPost]
         public async Task<ActionResult> Sale(List<SaleItem> sales)
         {
-            //TODO : Save sales
-
             //Clear list
             items = new List<SaleItem>();
-            return View();
+
+            var saledItems = await _service.CreateSaleHistory(sales);
+            if (saledItems)
+            {
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
 
     }
