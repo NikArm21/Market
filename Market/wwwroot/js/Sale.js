@@ -28,6 +28,18 @@ let addRow = function () {
     })
 };
 
+//$(document).on("change", ".total", function () {
+//    alert()
+//})
+
+function calculateTotal() {
+    var allTotal = 0;
+    $('#newRow tr').each(function () {
+        var total = $(this).find('.total').val();
+        allTotal += parseInt(total);
+        $(".totalAmount").html(allTotal);
+    });
+}
 
 
 let t;
@@ -56,7 +68,7 @@ $(document).on("change", '.productId', function (e) {
                 $(`#inputRow[data-productId="${result.Product.Id}"] > td > .total`).val(total != '0' ? total + result.Product.Price : result.Product.Price)
                 $(`#inputRow[data-productId="${result.Product.Id}"]`).attr("data-productCost", result.Product.Cost);
                 $(`#inputRow[data-productid="${result.Product.Id}"] > td > .name`).val(result.Product.Name)
-
+                calculateTotal();
             }
         }
     })
@@ -72,9 +84,7 @@ $(document).on('click', '.removeRow', function () {
         type: 'GET',
         url: "/Sale/RemoveSaleRow/" + "?SaleRowId=" + parseInt($(this).closest('#inputRow').attr("data-saleRowId")),
         success: function (data) {
-            if (data.success) {
-
-            }
+            calculateTotal();
         }
     })
 });
@@ -82,6 +92,7 @@ $(document).on('click', '.removeRow', function () {
 $(document).on('change', '.count', function () {
 
     $(this).closest("tr").find(".total").val(parseInt($(this).closest("tr").data("productcost")) * parseInt($(this).val()));
+    calculateTotal();
 })
 
 $(document).on("click", "#addRow", function () {
@@ -89,32 +100,38 @@ $(document).on("click", "#addRow", function () {
 })
 
 
-$(document).on("click", '.fucnKnopka', function (event) {
+//$(document).on("click", '.fucnKnopka', function (event) {
 
-    // Prevent the form from submitting normally
-    event.preventDefault();
+//    // Prevent the form from submitting normally
+
+
+
+
+
+
+
+
+
+
+//    //// Clear the selected products from the sale table
+//    //$('#saleTableBody tr').each(function () {
+//    //    $(this).find('.productId').val('');
+//    //    $(this).find('.name').val('');
+//    //    $(this).find('.count').val('');
+//    //    $(this).find('.total').val('');
+//    //});
+//});
+
+$("#postResult").on("click", function (e) {
+    e.preventDefault();
+
     $("#dialogDiv .modal-dialog").load(receiptRowURL, function () {
         // Open the modal dialog
         $("#dialogDiv").modal('show').on('show.bs.modal', ShowReceipt());
     });
 
 
-
-
-
-
-
-
-
-    //// Clear the selected products from the sale table
-    //$('#saleTableBody tr').each(function () {
-    //    $(this).find('.productId').val('');
-    //    $(this).find('.name').val('');
-    //    $(this).find('.count').val('');
-    //    $(this).find('.total').val('');
-    //});
 });
-
 
 function ShowReceipt() {
     // Loop through the rows of the sale table and extract the selected products
@@ -143,4 +160,33 @@ function ShowReceipt() {
 
     // Append the new HTML row to the sales table
     $('.reciptDiv').append(receiptRow);
+}
+
+
+
+function Sale() {
+
+    var mform = $("#formSale")[0];
+    $.ajax({
+        url: mform.action,
+        type: mform.method,
+        data: $(mform).serialize(),
+        success: function (result) {
+            if (result.success) {
+
+                $('#dialogdiv').modal('hide');
+                location.reload();
+
+            } else {
+                if (result.error != "") {
+                    $("#modalerror").html(result.error);
+                }
+                else {
+                    bindform(dialog);
+                    $('#dialogcontent').html(result);
+                }
+            }
+        }
+
+    });
 }

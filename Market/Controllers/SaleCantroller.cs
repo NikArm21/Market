@@ -83,7 +83,7 @@ namespace Market.Controllers
             {
                 return Json(new { success = true });
             }
-            return Json(new { success = false });
+            return Json(new { success = false, error = "Error" });
         }
 
     }
