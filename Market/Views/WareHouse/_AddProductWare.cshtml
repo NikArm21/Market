@@ -1,15 +1,16 @@
 ﻿@model WareHouse
  
-<div class="row">
+<div class="row" data-productId="@Model.ProductId">
     <form id="addProductForm" asp-action="AddProduct" asp-controller="WareHouse" method="post" class="d-flex mt-3"> 
         <div class="col-md-1 my-auto">
             <b class="">@Model.Product.Name</b>
         </div>
         <div class="col-md-3">
             <input type="text" asp-for="Count" class="form-control" placeholder="Count">
+            <input type="hidden" asp-for="ProductId"/>
         </div>
         <div class="col-md-6 row-buttons">
-            <button id="editProductInWare" class="btn btn-primary">Edit</button>
+            <button type="button" id="editProductInWare" class="btn btn-primary">Edit</button>
             @*<button type="button"  class="btn btn-danger">Remove</button>*@
             <img id="removeRowEdit" src="~/images/trash-bin.png" />
         </div>

@@ -36,7 +36,7 @@ namespace Market.Controllers
                 ReferenceHandler = ReferenceHandler.Preserve
             };
 
-            var product = System.Text.Json.JsonSerializer.Serialize(productWare, options);
+            var product = JsonSerializer.Serialize(productWare, options);
 
             if (productWare != null)
             {

@@ -41,7 +41,7 @@ namespace Market.Services
             }
             else
             {
-                product.Count += wareHouse.Count;
+                product.Count = wareHouse.Count;
             }
 
             int result = await _context.SaveChangesAsync();

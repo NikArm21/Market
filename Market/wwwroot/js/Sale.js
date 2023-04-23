@@ -28,16 +28,13 @@ let addRow = function () {
     })
 };
 
-//$(document).on("change", ".total", function () {
-//    alert()
-//})
 
-function calculateTotal() {
-    var allTotal = 0;
+function calculateCost() {
+    var allCost = 0;
     $('#newRow tr').each(function () {
-        var total = $(this).find('.total').val();
-        allTotal += parseInt(total);
-        $(".totalAmount").html(allTotal);
+        var cost = $(this).find('.total').val();
+        allCost += parseInt(cost);
+        $(".totalAmount").html(allCost);
     });
 }
 
@@ -65,10 +62,10 @@ $(document).on("change", '.productId', function (e) {
                 //addRow();
                 var result = JSON.parse(data.product);
 
-                $(`#inputRow[data-productId="${result.Product.Id}"] > td > .total`).val(total != '0' ? total + result.Product.Price : result.Product.Price)
+                $(`#inputRow[data-productId="${result.Product.Id}"] > td > .total`).val(total != '0' ? total + result.Product.Cost : result.Product.Cost)
                 $(`#inputRow[data-productId="${result.Product.Id}"]`).attr("data-productCost", result.Product.Cost);
                 $(`#inputRow[data-productid="${result.Product.Id}"] > td > .name`).val(result.Product.Name)
-                calculateTotal();
+                calculateCost();
             }
         }
     })
@@ -92,35 +89,12 @@ $(document).on('click', '.removeRow', function () {
 $(document).on('change', '.count', function () {
 
     $(this).closest("tr").find(".total").val(parseInt($(this).closest("tr").data("productcost")) * parseInt($(this).val()));
-    calculateTotal();
+    calculateCost();
 })
 
 $(document).on("click", "#addRow", function () {
     addRow();
 })
-
-
-//$(document).on("click", '.fucnKnopka', function (event) {
-
-//    // Prevent the form from submitting normally
-
-
-
-
-
-
-
-
-
-
-//    //// Clear the selected products from the sale table
-//    //$('#saleTableBody tr').each(function () {
-//    //    $(this).find('.productId').val('');
-//    //    $(this).find('.name').val('');
-//    //    $(this).find('.count').val('');
-//    //    $(this).find('.total').val('');
-//    //});
-//});
 
 $("#postResult").on("click", function (e) {
     e.preventDefault();
@@ -129,8 +103,6 @@ $("#postResult").on("click", function (e) {
         // Open the modal dialog
         $("#dialogDiv").modal('show').on('show.bs.modal', ShowReceipt());
     });
-
-
 });
 
 function ShowReceipt() {
@@ -187,6 +159,5 @@ function Sale() {
                 }
             }
         }
-
     });
 }

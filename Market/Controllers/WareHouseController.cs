@@ -8,7 +8,6 @@ namespace Market.Controllers
     public class WareHouseController : Controller
     {
         private readonly IWareHouseService _service;
-
         public WareHouseController(IWareHouseService service)
         {
             _service = service;
@@ -21,8 +20,6 @@ namespace Market.Controllers
 
             return View();
         }
-
-        // GET: WareHouseController/Details/5
 
         // GET: WareHouseController/Create
         public async Task<ActionResult> AddProduct(int id = 0)
@@ -42,9 +39,6 @@ namespace Market.Controllers
         {
             try
             {
-                //_marketDbContext.WareHouses.Add(wareHouse);
-                //_marketDbContext.SaveChanges(); 
-                //_service.SaleProduct();
                 bool result = await _service.AddProduct(wareHouse);
                 if (result)
                 {
@@ -73,8 +67,5 @@ namespace Market.Controllers
                 return Json(new { success = false });
             }
         }
-
-
-
     }
 }
