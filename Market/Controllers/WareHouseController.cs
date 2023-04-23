@@ -1,10 +1,13 @@
 ﻿using Market.Models;
 using Market.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace Market.Controllers
 {
+    [Authorize(Roles = "admin,manager")]
     public class WareHouseController : Controller
     {
         private readonly IWareHouseService _service;

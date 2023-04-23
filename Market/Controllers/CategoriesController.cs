@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Market;
 using Market.Models;
 using Market.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Market.Controllers
 {
+    [Authorize(Roles ="admin,manager")]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService _service;

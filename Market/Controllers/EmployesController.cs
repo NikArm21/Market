@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Market.Controllers
 {
+    [Authorize(Roles = "admin,manager")]
     public class EmployesController : Controller
     {
         // GET: EmployesController

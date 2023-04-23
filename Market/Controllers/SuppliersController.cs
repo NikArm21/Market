@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Market;
 using Market.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Market.Controllers
 {
+    [Authorize(Roles = "admin,manager")]
     public class SuppliersController : Controller
     {
         private readonly MarketDbContext _context;

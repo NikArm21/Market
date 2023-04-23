@@ -31,39 +31,47 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">CreateCategory</a>
-                            </li>  
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">CreateSuppilers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="WareHouse" asp-action="Index">AddProductWare</a>
-                            </li>
+                            @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                            {
+                                //admin, manager
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">CreateCategory</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Suppliers" asp-action="Index">CreateSuppilers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="WareHouse" asp-action="Index">AddProductWare</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">AddProduct</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sale" asp-action="Sale">Sale</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">AddProduct</a>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated)
-                        {
+
                             <li class="nav-item d-flex align-items-center" style="margin-left:auto">
                                 <p class="m-0">@User.Identity.Name</p>
                                 <form method="post" asp-controller="Account" asp-action="Logout" class="d-flex align-items-center ml-3">
                                     <button type="submit" class="btn btn-light" value="Logout">Logout</button>
                                 </form>
                             </li>
+                            //admin
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark position-absolute" style="right:85px" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                            }
+
                         }
                         else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark position-absolute" style="right:25px" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark position-absolute" style="right:85px" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
+                            
                         }
                     </ul>
                 </div>
@@ -76,11 +84,10 @@
         </main>
     </div>
 
-<div class="modal fade" id="dialogDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-  <div class="modal-dialog">
-   
-  </div>
-</div>
+    <div class="modal fade" id="dialogDiv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+        </div>
+    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

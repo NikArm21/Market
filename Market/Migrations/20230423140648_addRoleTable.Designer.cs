@@ -4,6 +4,7 @@ using Market;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Market.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    partial class MarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230423140648_addRoleTable")]
+    partial class addRoleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,16 +113,16 @@ namespace Market.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "30a89693-f92d-4288-991b-df0b15bcc66a",
+                            Id = "2102d2b8-9c4c-4323-a6fc-eb0a9f6b7d63",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6e499218-de7e-43fc-99c9-7f9ffb02d97d",
+                            ConcurrencyStamp = "a9e2b42a-539f-42d4-aadd-1f813277d56e",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FullName = "admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN65FaB2qOHT2MOXrImjVGERn0Ell7fVx4XayJKfx1WzE3SvoGK4s+Ji+xTMmnmhww==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI2uRRWv0IubRWUwtURy5XY98IQouJJ9zbD0byhVxep9EpBgM4OBYexnq/ozkNvb2Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -293,19 +296,19 @@ namespace Market.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a3258c57-5f9b-4589-93e7-8d8bd8ee950a",
+                            Id = "0440508d-0f87-4015-9112-1baef1bf1bfc",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "8f6645bd-1353-43f3-b6b1-b13657688ce2",
+                            Id = "aa113d0e-a66b-4fe9-a79c-8a05fbb2e710",
                             Name = "manager",
                             NormalizedName = "manager"
                         },
                         new
                         {
-                            Id = "499a0974-4d9c-42fb-8403-c66aabb6b640",
+                            Id = "d340155b-82a9-40ca-a374-28e2fbcdf576",
                             Name = "kassa",
                             NormalizedName = "kassa"
                         });
@@ -400,8 +403,8 @@ namespace Market.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "30a89693-f92d-4288-991b-df0b15bcc66a",
-                            RoleId = "a3258c57-5f9b-4589-93e7-8d8bd8ee950a"
+                            UserId = "2102d2b8-9c4c-4323-a6fc-eb0a9f6b7d63",
+                            RoleId = "0440508d-0f87-4015-9112-1baef1bf1bfc"
                         });
                 });
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Market.Controllers
 {
-    [AllowAnonymous]
+    
     public class AccountController : Controller
     {
         private readonly UserManager<Employee> _userManager;
@@ -62,11 +62,14 @@ namespace Market.Controllers
 
 
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
