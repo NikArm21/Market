@@ -45,6 +45,27 @@ $(document).on("click", "#addProduct", function () {
     });
 })
 
+$(document).on("click", "#editProductInWare", function () {
+
+    var productId = $(this).closest(".product-row").find(".row").data("productid")
+    var mform = $("#addProductForm")[0];
+    $.ajax({
+        url: mform.action,
+        type: mform.method,
+        data: $(mform).serialize(),
+        success: function (result) {
+            if (result.success) {
+
+                $(`.row[data-productid="${productId}"]`).remove()
+            }
+            else {
+
+            }
+        }
+    });
+
+})
+
 
 $(document).on("click", "#addProductToWare", function () {
 
@@ -54,7 +75,7 @@ $(document).on("click", "#addProductToWare", function () {
     $.ajax({
         type: "POST",
         url: actionUrl,
-        data:form.serialize(),
+        data: form.serialize(),
         success: function (result) {
             if (result.success) {
                 $("#dialogDiv").modal("hide");
